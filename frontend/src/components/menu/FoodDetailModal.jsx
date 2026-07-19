@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import VegBadge from './VegBadge';
 import useAddToCart from '../../hooks/useAddToCart';
+import ImageWithFallback from '../common/ImageWithFallback';
 import { formatINR } from '../../utils/currency';
 
 export default function FoodDetailModal({ item, onClose }) {
@@ -32,7 +33,11 @@ export default function FoodDetailModal({ item, onClose }) {
       />
       <div className="animate-scale-in relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl border border-black/[0.06] bg-white shadow-[0_24px_64px_rgba(0,0,0,0.2)]">
         <div className="relative aspect-[16/10] overflow-hidden">
-          <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+          <ImageWithFallback
+            src={item.image}
+            alt={item.name}
+            fallbackType="food"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-void/50 to-transparent" />
           <button
             type="button"

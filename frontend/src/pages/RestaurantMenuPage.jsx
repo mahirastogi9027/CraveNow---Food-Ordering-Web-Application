@@ -5,6 +5,7 @@ import { useCart } from '../context/CartContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import VegBadge from '../components/menu/VegBadge';
+import ImageWithFallback from '../components/common/ImageWithFallback';
 import { formatINR } from '../utils/currency';
 
 export default function RestaurantMenuPage() {
@@ -57,13 +58,10 @@ export default function RestaurantMenuPage() {
 
         <div className="mb-10">
           <div className="relative h-64 overflow-hidden rounded-2xl">
-            <img
+            <ImageWithFallback
               src={restaurant.image}
               alt={`${restaurant.featuredItem?.name || restaurant.cuisine} from ${restaurant.name}`}
-              className="h-full w-full object-cover"
-              onError={(e) => {
-                e.currentTarget.src = "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=400&fit=crop";
-              }}
+              fallbackType="restaurant"
             />
             {restaurant.offer && (
               <div className="absolute bottom-4 left-4 bg-brand text-white px-4 py-2 rounded-xl font-semibold shadow-lg">
@@ -120,13 +118,11 @@ export default function RestaurantMenuPage() {
                     key={item.id}
                     className="flex gap-4 rounded-2xl border border-black/[0.06] bg-white p-4"
                   >
-                    <img
+                    <ImageWithFallback
                       src={item.image}
                       alt={item.name}
-                      className="h-28 w-28 flex-shrink-0 rounded-xl object-cover"
-                      onError={(e) => {
-                        e.currentTarget.src = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=300&fit=crop";
-                      }}
+                      fallbackType="food"
+                      className="h-28 w-28 flex-shrink-0 rounded-xl"
                     />
                     <div className="flex flex-1 flex-col justify-between">
                       <div>

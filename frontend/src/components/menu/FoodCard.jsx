@@ -1,5 +1,6 @@
 import VegBadge from './VegBadge';
 import useAddToCart from '../../hooks/useAddToCart';
+import ImageWithFallback from '../common/ImageWithFallback';
 import { formatINR } from '../../utils/currency';
 
 export default function FoodCard({ item, index, onViewDetails }) {
@@ -13,11 +14,11 @@ export default function FoodCard({ item, index, onViewDetails }) {
     >
       <div className="overflow-hidden rounded-3xl border border-black/[0.06] bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_56px_rgba(0,0,0,0.1)] hover:border-brand/20">
         <div className="relative aspect-[4/3] overflow-hidden">
-          <img
+          <ImageWithFallback
             src={item.image}
             alt={item.name}
+            fallbackType="food"
             className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.06]"
-            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-void/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           <div className="absolute left-4 top-4">

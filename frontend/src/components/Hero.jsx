@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const floatingFoods = [
   { emoji: '🍣', label: 'Sushi', size: 'lg', delay: '0s', x: '8%', y: '18%' },
   { emoji: '🍕', label: 'Pizza', size: 'md', delay: '1s', x: '78%', y: '12%' },
@@ -29,6 +32,23 @@ function FloatingOrb({ food }) {
 }
 
 export default function Hero() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleDiscover = () => {
+    if (searchQuery.trim()) {
+      navigate(`/menu?search=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      navigate('/menu');
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleDiscover();
+    }
+  };
+
   return (
     <section id="home" className="relative min-h-screen overflow-hidden bg-void dot-grid">
       <div className="pointer-events-none absolute inset-0">
@@ -72,12 +92,16 @@ export default function Hero() {
             </svg>
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={handleKeyPress}
               placeholder="Ask anything — cuisines, moods, cravings..."
               className="w-full bg-transparent text-sm text-white placeholder:text-white/25 outline-none"
             />
           </div>
           <button
             type="button"
+            onClick={handleDiscover}
             className="group relative overflow-hidden rounded-2xl bg-brand px-7 py-3.5 text-sm font-medium text-white transition-all hover:shadow-[0_0_40px_rgba(255,92,0,0.35)] active:scale-[0.97]"
           >
             <span className="relative z-10">Discover</span>

@@ -17,49 +17,107 @@ export const cities = [
 const createMenu = (restaurantId, cuisineType) => {
   const baseItems = [];
   
+  // Generate unique items based on restaurant ID to avoid duplicates
+  const hash = restaurantId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  
   // Starters
   if (['North Indian', 'Mughlai'].includes(cuisineType)) {
-    baseItems.push(
-      { id: `${restaurantId}-starter-1`, name: 'Paneer Tikka', description: 'Grilled cottage cheese with spices', price: 299, image: 'https://images.unsplash.com/photo-1567337710282-00832b415979?w=300&h=300&fit=crop', isVeg: true, category: 'Starters' },
-      { id: `${restaurantId}-starter-2`, name: 'Chicken Tikka', description: 'Marinated grilled chicken', price: 399, image: 'https://images.unsplash.com/photo-1603360946369-fe6f66552663?w=300&h=300&fit=crop', isVeg: false, category: 'Starters' },
-    );
+    const starters = [
+      { name: 'Paneer Tikka', description: 'Grilled cottage cheese with spices', price: 299, image: 'https://images.unsplash.com/photo-1567337710282-00832b415979?w=300&h=300&fit=crop', isVeg: true },
+      { name: 'Chicken Tikka', description: 'Marinated grilled chicken', price: 399, image: 'https://images.unsplash.com/photo-1603360946363-fe6f66552663?w=300&h=300&fit=crop', isVeg: false },
+      { name: 'Hara Bhara Kabab', description: 'Spinach and green pea patties', price: 279, image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&h=300&fit=crop', isVeg: true },
+      { name: 'Seekh Kebab', description: 'Spiced minced meat skewers', price: 349, image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=300&h=300&fit=crop', isVeg: false },
+    ];
+    baseItems.push(...starters.slice(0, 2 + (hash % 2)).map((item, i) => ({
+      id: `${restaurantId}-starter-${i + 1}`,
+      ...item,
+      category: 'Starters'
+    })));
   } else if (['Italian', 'Pizza'].includes(cuisineType)) {
-    baseItems.push(
-      { id: `${restaurantId}-starter-1`, name: 'Garlic Bread', description: 'Fresh baked bread with garlic butter', price: 199, image: 'https://images.unsplash.com/photo-1571070078718-4705890748f5?w=300&h=300&fit=crop', isVeg: true, category: 'Starters' },
-      { id: `${restaurantId}-starter-2`, name: 'Bruschetta', description: 'Toasted bread with tomato & basil', price: 249, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=300&fit=crop', isVeg: true, category: 'Starters' },
-    );
+    const starters = [
+      { name: 'Garlic Bread', description: 'Fresh baked bread with garlic butter', price: 199, image: 'https://images.unsplash.com/photo-1571070078718-4705890748f5?w=300&h=300&fit=crop', isVeg: true },
+      { name: 'Bruschetta', description: 'Toasted bread with tomato & basil', price: 249, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=300&fit=crop', isVeg: true },
+      { name: 'Cheese Sticks', description: 'Mozzarella sticks with marinara', price: 229, image: 'https://images.unsplash.com/photo-1531749668029-2db88e4276c7?w=300&h=300&fit=crop', isVeg: true },
+      { name: 'Caesar Salad', description: 'Romaine lettuce with croutons', price: 279, image: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=300&h=300&fit=crop', isVeg: true },
+    ];
+    baseItems.push(...starters.slice(0, 2 + (hash % 2)).map((item, i) => ({
+      id: `${restaurantId}-starter-${i + 1}`,
+      ...item,
+      category: 'Starters'
+    })));
   }
   
   // Main Course
   if (['North Indian', 'Mughlai'].includes(cuisineType)) {
-    baseItems.push(
-      { id: `${restaurantId}-main-1`, name: 'Butter Chicken', description: 'Classic creamy tomato chicken curry', price: 449, image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=300&h=300&fit=crop', isVeg: false, category: 'Main Course' },
-      { id: `${restaurantId}-main-2`, name: 'Paneer Butter Masala', description: 'Cottage cheese in creamy tomato gravy', price: 399, image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&h=300&fit=crop', isVeg: true, category: 'Main Course' },
-    );
+    const mains = [
+      { name: 'Butter Chicken', description: 'Classic creamy tomato chicken curry', price: 449, image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=300&h=300&fit=crop', isVeg: false },
+      { name: 'Paneer Butter Masala', description: 'Cottage cheese in creamy tomato gravy', price: 399, image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&h=300&fit=crop', isVeg: true },
+      { name: 'Dal Makhani', description: 'Creamy black lentils', price: 349, image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=300&h=300&fit=crop', isVeg: true },
+      { name: 'Mutton Rogan Josh', description: 'Aromatic Kashmiri mutton curry', price: 549, image: 'https://images.unsplash.com/photo-1574653853027-5382a3d23a15b?w=300&h=300&fit=crop', isVeg: false },
+    ];
+    baseItems.push(...mains.slice(0, 2 + (hash % 2)).map((item, i) => ({
+      id: `${restaurantId}-main-${i + 1}`,
+      ...item,
+      category: 'Main Course'
+    })));
   }
   
   // Biryani
   if (['Biryani', 'Hyderabadi'].includes(cuisineType)) {
-    baseItems.push(
-      { id: `${restaurantId}-biryani-1`, name: 'Hyderabadi Chicken Biryani', description: 'Slow cooked aromatic rice with chicken', price: 499, image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&h=300&fit=crop', isVeg: false, category: 'Biryani' },
-      { id: `${restaurantId}-biryani-2`, name: 'Veg Dum Biryani', description: 'Mixed vegetables biryani', price: 399, image: 'https://images.unsplash.com/photo-1633945274305-480c4e7c0e8b?w=300&h=300&fit=crop', isVeg: true, category: 'Biryani' },
-    );
+    const biryanis = [
+      { name: 'Hyderabadi Chicken Biryani', description: 'Slow cooked aromatic rice with chicken', price: 499, image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&h=300&fit=crop', isVeg: false },
+      { name: 'Veg Dum Biryani', description: 'Mixed vegetables biryani', price: 399, image: 'https://images.unsplash.com/photo-1633945274305-480c4e7c0e8b?w=300&h=300&fit=crop', isVeg: true },
+      { name: 'Mutton Biryani', description: 'Tender mutton with aromatic rice', price: 599, image: 'https://images.unsplash.com/photo-1589302168068-964664d1dc65?w=300&h=300&fit=crop', isVeg: false },
+      { name: 'Egg Biryani', description: 'Spiced rice with boiled eggs', price: 349, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=300&fit=crop', isVeg: false },
+    ];
+    baseItems.push(...biryanis.slice(0, 2 + (hash % 2)).map((item, i) => ({
+      id: `${restaurantId}-biryani-${i + 1}`,
+      ...item,
+      category: 'Biryani'
+    })));
   }
   
   // Pizza
   if (['Italian', 'Pizza'].includes(cuisineType)) {
-    baseItems.push(
-      { id: `${restaurantId}-pizza-1`, name: 'Margherita Pizza', description: 'Classic tomato & mozzarella', price: 349, image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&h=300&fit=crop', isVeg: true, category: 'Pizza' },
-      { id: `${restaurantId}-pizza-2`, name: 'Pepperoni Pizza', description: 'Spicy pepperoni with cheese', price: 449, image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=300&h=300&fit=crop', isVeg: false, category: 'Pizza' },
-    );
+    const pizzas = [
+      { name: 'Margherita Pizza', description: 'Classic tomato & mozzarella', price: 349, image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&h=300&fit=crop', isVeg: true },
+      { name: 'Pepperoni Pizza', description: 'Spicy pepperoni with cheese', price: 449, image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=300&h=300&fit=crop', isVeg: false },
+      { name: 'BBQ Chicken Pizza', description: 'Grilled chicken with BBQ sauce', price: 499, image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&h=300&fit=crop', isVeg: false },
+      { name: 'Veggie Supreme', description: 'Loaded with vegetables', price: 429, image: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=300&h=300&fit=crop', isVeg: true },
+    ];
+    baseItems.push(...pizzas.slice(0, 2 + (hash % 2)).map((item, i) => ({
+      id: `${restaurantId}-pizza-${i + 1}`,
+      ...item,
+      category: 'Pizza'
+    })));
   }
   
-  // Desserts & Beverages
+  // Desserts & Beverages - vary based on hash
+  const desserts = [
+    { name: 'Gulab Jamun', description: 'Deep fried milk dumplings in sugar syrup', price: 149, image: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=300&h=300&fit=crop', isVeg: true },
+    { name: 'Ice Cream Sundae', description: 'Vanilla ice cream with toppings', price: 129, image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300&h=300&fit=crop', isVeg: true },
+    { name: 'Chocolate Brownie', description: 'Warm fudge brownie', price: 179, image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=300&h=300&fit=crop', isVeg: true },
+    { name: 'Rasmalai', description: 'Creamy cheese dumplings in milk', price: 199, image: 'https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=300&h=300&fit=crop', isVeg: true },
+  ];
+  
+  const beverages = [
+    { name: 'Mango Lassi', description: 'Fresh mango yogurt drink', price: 99, image: 'https://images.unsplash.com/photo-1623065424887-8af272ad4905?w=300&h=300&fit=crop', isVeg: true },
+    { name: 'Cold Coffee', description: 'Chilled coffee with ice cream', price: 129, image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=300&h=300&fit=crop', isVeg: true },
+    { name: 'Fresh Lime Soda', description: 'Refreshing lime soda', price: 79, image: 'https://images.unsplash.com/photo-1546173159-315724a31696?w=300&h=300&fit=crop', isVeg: true },
+    { name: 'Masala Chai', description: 'Spiced Indian tea', price: 59, image: 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=300&h=300&fit=crop', isVeg: true },
+  ];
+  
   baseItems.push(
-    { id: `${restaurantId}-dessert-1`, name: 'Gulab Jamun', description: 'Deep fried milk dumplings in sugar syrup', price: 149, image: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=300&h=300&fit=crop', isVeg: true, category: 'Desserts' },
-    { id: `${restaurantId}-dessert-2`, name: 'Ice Cream Sundae', description: 'Vanilla ice cream with toppings', price: 129, image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300&h=300&fit=crop', isVeg: true, category: 'Desserts' },
-    { id: `${restaurantId}-beverage-1`, name: 'Mango Lassi', description: 'Fresh mango yogurt drink', price: 99, image: 'https://images.unsplash.com/photo-1623065424887-8af272ad4905?w=300&h=300&fit=crop', isVeg: true, category: 'Beverages' },
-    { id: `${restaurantId}-beverage-2`, name: 'Cold Coffee', description: 'Chilled coffee with ice cream', price: 129, image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=300&h=300&fit=crop', isVeg: true, category: 'Beverages' },
+    ...desserts.slice(0, 2 + (hash % 2)).map((item, i) => ({
+      id: `${restaurantId}-dessert-${i + 1}`,
+      ...item,
+      category: 'Desserts'
+    })),
+    ...beverages.slice(0, 2 + (hash % 2)).map((item, i) => ({
+      id: `${restaurantId}-beverage-${i + 1}`,
+      ...item,
+      category: 'Beverages'
+    }))
   );
   
   return baseItems;

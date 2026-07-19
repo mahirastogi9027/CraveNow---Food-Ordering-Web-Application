@@ -91,6 +91,9 @@ export default function Footer() {
           <p className="font-mono text-[11px] text-white/20">
             © {new Date().getFullYear()} Crave Now
           </p>
+          <p className="font-mono text-[11px] text-white/40">
+            Designed & Developed by Mahi Rastogi
+          </p>
           <p className="font-mono text-[11px] text-white/20">
             Crafted with precision
           </p>

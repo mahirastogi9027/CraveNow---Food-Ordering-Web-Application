@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { restaurants, cities } from '../data/restaurantData';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ImageWithFallback from '../components/common/ImageWithFallback';
 import { formatINR } from '../utils/currency';
 
 export default function RestaurantListingPage() {
@@ -40,13 +41,11 @@ export default function RestaurantListingPage() {
               className="group block overflow-hidden rounded-2xl border border-black/[0.06] bg-white shadow-sm transition-all hover:shadow-[0_16px_48px_rgba(0,0,0,0.12)]"
             >
               <div className="relative h-48 overflow-hidden">
-                <img
+                <ImageWithFallback
                   src={restaurant.image}
                   alt={`${restaurant.featuredItem?.name || restaurant.cuisine} from ${restaurant.name}`}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=450&fit=crop";
-                  }}
+                  fallbackType="restaurant"
+                  className="transition-transform duration-500 group-hover:scale-110"
                 />
                 {restaurant.offer && (
                   <div className="absolute top-3 left-3 bg-brand text-white px-3 py-1 rounded-full text-xs font-semibold shadow-md">
